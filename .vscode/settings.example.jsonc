@@ -1,0 +1,32 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always",
+    "source.fixAll.eslint": "always",
+    "source.organizeImports": "always"
+  },
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.fontSize": 12,
+  "editor.rulers": [
+    156
+  ],
+  "editor.tabSize": 2,
+  "eslint.format.enable": true,
+  "eslint.run": "onSave",
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.spec.tsx": "componentForTesting.tsx, Consumer.tsx",
+    "package.json": "pnpm-lock.yaml",
+    ".env": ".env*",
+    ".eslintrc.json": ".eslint*, .prettierrc, .stylelintrc.json, .editorconfig, .commitlintrc, .lintstagedrc.json"
+  },
+  "files.insertFinalNewline": true,
+  "files.readonlyInclude": {
+    "node_modules/**/*": true,
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
+}

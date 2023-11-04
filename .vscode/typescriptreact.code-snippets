@@ -1,0 +1,86 @@
+{
+  "Function created with 'const'": {
+    "prefix": "cfunc",
+    "body": [
+      "const ${1:handleChange} = ($2) => {$3}"
+    ],
+    "description": "Function created with 'const'"
+  },
+  "React function component": {
+    "scope": "typescriptreact",
+    "prefix": "rfc",
+    "body": [
+      "import { useState } from 'react';",
+      "",
+      "import './styles.scss';",
+      "",
+      "type ${1:${TM_DIRECTORY/^.*(\\/|\\\\)([^(\\/|\\\\)]+)$/$2/}}Props = {}",
+      "",
+      "export function ${1:${TM_DIRECTORY/^.*(\\/|\\\\)([^(\\/|\\\\)]+)$/$2/}}({}: ${1:${TM_DIRECTORY/^.*(\\/|\\\\)([^(\\/|\\\\)]+)$/$2/}}Props) {",
+      "  const [state, setState] = useState('${1:${TM_DIRECTORY/^.*(\\/|\\\\)([^(\\/|\\\\)]+)$/$2/}}');",
+      "",
+      "  return (",
+      "    <div>",
+      "      <h1>{state}</h1>",
+      "    </div>",
+      "  );",
+      "}",
+      ""
+    ],
+    "description": "React function component"
+  },
+  "useEffect hook": {
+    "scope": "typescriptreact",
+    "prefix": "useE",
+    "body": [
+      "useEffect(() => {",
+      "    $2",
+      "}, [$1])"
+    ],
+    "description": "useEffect hook"
+  },
+  "useRef hook": {
+		"prefix": "useR",
+		"body": [
+			"const ${1:input}Ref = useRef<${2:Type}>(${3:null});"
+		],
+		"description": "useRef hook"
+	},
+  "useState hook": {
+    "scope": "typescriptreact",
+    "prefix": "useS",
+    "body": [
+      "const [$1, set${1/(.*)/${1:/capitalize}/}] = useState$2($3);",
+    ],
+    "description": "useState hook"
+  },
+  "useToggle hook": {
+    "scope": "typescriptreact",
+    "prefix": "useT",
+    "body": [
+      "const [$1, toggle${1/(.*)/${1:/capitalize}/}] = useToggle($2);",
+    ],
+    "description": "useToggle hook"
+  },
+  "Test component": {
+    "scope": "typescriptreact",
+    "prefix": "testC",
+    "body": [
+      "import { render, screen } from '@testing-library/react';",
+      "",
+      "import { ${1:${TM_DIRECTORY/^.*(\\/|\\\\)([^(\\/|\\\\)]+)$/$2/}} } from '.';",
+      "",
+      "describe('${1:${TM_DIRECTORY/^.*(\\/|\\\\)([^(\\/|\\\\)]+)$/$2/}} component', () => {",
+      "  it('should render correctly', () => {",
+      "    render(<${1:${TM_DIRECTORY/^.*(\\/|\\\\)([^(\\/|\\\\)]+)$/$2/}} />);",
+      "",
+      "    screen.logTestingPlaygroundURL();",
+      "",
+      "    expect(screen.getByRole('none')).toBeInTheDocument();",
+      "  });",
+      "});",
+      ""
+    ],
+    "description": "Test component"
+  }
+}
