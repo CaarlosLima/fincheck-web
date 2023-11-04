@@ -45,6 +45,7 @@
         "newlines-between": "always"
       }
     ],
+    "import/prefer-default-export": "off",
     "no-empty": [
       "error",
       {
