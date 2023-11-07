@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { z } from 'zod';
 
+import { useAuth } from '../../../app/hooks/useAuth';
 import { authService } from '../../../app/services/authService';
 import { SignupParams } from '../../../app/services/authService/signup';
 
@@ -30,9 +31,13 @@ export function useRegisterController() {
     },
   });
 
+  const { signin } = useAuth();
+
   const handleSubmit = hookFormHandleSubmit(async (formData) => {
     try {
-      await mutateAsync(formData);
+      const { accessToken } = await mutateAsync(formData);
+
+      signin(accessToken);
     } catch (error) {
       toast.error('Ocorreu um erro ao criar sua conta!');
     }
