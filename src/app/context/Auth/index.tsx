@@ -1,12 +1,17 @@
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   ReactNode,
   createContext,
   useCallback,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
+import toast from 'react-hot-toast';
 
+import { LaunchScreen } from '../../../view/components/LaunchScreen';
 import { localStorageKeys } from '../../config/localStorageKeys';
+import { usersService } from '../../services/usersService';
 
 type AuthContextType = {
   signedIn: boolean;
@@ -25,6 +30,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return !!storedAccessToken;
   });
 
+  const { isError, isFetching, isSuccess } = useQuery({
+    queryKey: ['users', 'me'],
+    queryFn: () => usersService.me(),
+    enabled: signedIn,
+    staleTime: Infinity,
+  });
+
+  const queryClient = useQueryClient();
+
   const signin = useCallback((accessToken: string) => {
     localStorage.setItem(localStorageKeys.ACCESS_TOKEN, accessToken);
 
@@ -34,17 +48,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signout = useCallback(() => {
     localStorage.removeItem(localStorageKeys.ACCESS_TOKEN);
 
+    queryClient.removeQueries({ queryKey: ['users', 'me'], exact: true });
+
     setSignedIn(false);
-  }, []);
+  }, [queryClient]);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error('Sua sessão expirou!');
+
+      signout();
+    }
+  }, [isError, signout]);
 
   const authProviderValue = useMemo<AuthContextType>(
-    () => ({ signedIn, signin, signout }),
-    [signedIn, signin, signout],
+    () => ({ signedIn: isSuccess && signedIn, signin, signout }),
+    [isSuccess, signedIn, signin, signout],
   );
 
   return (
     <AuthContext.Provider value={authProviderValue}>
-      {children}
+      <LaunchScreen isLoading={isFetching} />
+
+      {!isFetching && children}
     </AuthContext.Provider>
   );
 }
