@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { AuthLayout } from '../view/layouts/AuthLayout';
-import { Dashboard } from '../view/pages/Dashboard';
-import { Login } from '../view/pages/Login';
-import { Register } from '../view/pages/Register';
+import { AuthLayout } from 'src/view/layouts/AuthLayout';
+import { Dashboard } from 'src/view/pages/Dashboard';
+import { Login } from 'src/view/pages/Login';
+import { Register } from 'src/view/pages/Register';
 
 import { AuthGuard } from './AuthGuard';
 

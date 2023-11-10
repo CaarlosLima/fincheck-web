@@ -15,6 +15,7 @@
   },
   "plugins": [
     "@typescript-eslint",
+    "eslint-plugin-import-helpers",
     "prettier"
   ],
   "rules": {
@@ -27,22 +28,23 @@
         "tsx": "never"
       }
     ],
-    "import/order": [
+    "import-helpers/order-imports": [
       "error",
       {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index"
-        ],
         "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
+          "ignoreCase": true,
+          "order": "asc"
         },
-        "newlines-between": "always"
+        "groups": [
+          "parent",
+          "module",
+          "/^src/",
+          [
+            "sibling",
+            "index"
+          ]
+        ],
+        "newlinesBetween": "always"
       }
     ],
     "import/prefer-default-export": "off",

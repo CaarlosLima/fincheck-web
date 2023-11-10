@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
-import { Button } from '../../components/Button';
-import { Input } from '../../components/Input';
+import { Button } from 'src/view/components/Button';
+import { Input } from 'src/view/components/Input';
 
 import { useLoginController } from './useLoginController';
 

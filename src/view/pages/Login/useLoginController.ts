@@ -4,9 +4,9 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { z } from 'zod';
 
-import { useAuth } from '../../../app/hooks/useAuth';
-import { authService } from '../../../app/services/authService';
-import { SigninParams } from '../../../app/services/authService/signin';
+import { useAuth } from 'src/app/hooks/useAuth';
+import { authService } from 'src/app/services/authService';
+import { SigninParams } from 'src/app/services/authService/signin';
 
 const schema = z.object({
   email: z.string().min(1, 'E-mail é obrigatório').email('E-mail é inválido'),

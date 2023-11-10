@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import { localStorageKeys } from '../config/localStorageKeys';
-import { delay } from '../utils/delay';
+import { localStorageKeys } from 'src/app/config/localStorageKeys';
+import { delay } from 'src/app/utils/delay';
 
 export const httpClient = axios.create({
   baseURL: import.meta.env.VITE_BASE_API_URL,

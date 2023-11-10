@@ -9,9 +9,9 @@ import {
 } from 'react';
 import toast from 'react-hot-toast';
 
-import { LaunchScreen } from '../../../view/components/LaunchScreen';
-import { localStorageKeys } from '../../config/localStorageKeys';
-import { usersService } from '../../services/usersService';
+import { localStorageKeys } from 'src/app/config/localStorageKeys';
+import { usersService } from 'src/app/services/usersService';
+import { LaunchScreen } from 'src/view/components/LaunchScreen';
 
 type AuthContextType = {
   signedIn: boolean;

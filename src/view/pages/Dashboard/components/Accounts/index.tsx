@@ -1,7 +1,7 @@
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { EyeIcon } from '../../../../components/icons/EyeIcon';
+import { EyeIcon } from 'src/view/components/icons/EyeIcon';
 
 import { AccountCard } from './AccountCard';
 import { SliderNavigation } from './SliderNavigation';
