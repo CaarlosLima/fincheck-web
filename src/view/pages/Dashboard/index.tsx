@@ -2,6 +2,7 @@ import { Logo } from '../../components/Logo';
 import { UserMenu } from '../../components/UserMenu';
 
 import { Accounts } from './components/Accounts';
+import { Transactions } from './components/Transactions';
 
 export function Dashboard() {
   return (
@@ -15,6 +16,10 @@ export function Dashboard() {
       <main className="flex flex-col flex-1 gap-4 md:flex-row">
         <section className="w-full md:w-1/2">
           <Accounts />
+        </section>
+
+        <section className="w-full md:w-1/2">
+          <Transactions />
         </section>
       </main>
     </div>
