@@ -1,6 +1,7 @@
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { formatCurrency } from 'src/app/utils/formatCurrency';
 import { EyeIcon } from 'src/view/components/icons/EyeIcon';
 
 import { AccountCard } from './AccountCard';
@@ -18,7 +19,9 @@ export function Accounts() {
         <span className="block tracking-[-0.5px]">Saldo Total</span>
 
         <div className="flex items-center gap-2">
-          <strong className="text-2xl tracking-[-1px]">R$ 1000,00</strong>
+          <strong className="text-2xl tracking-[-1px]">
+            {formatCurrency(1000)}
+          </strong>
 
           <button
             type="button"
