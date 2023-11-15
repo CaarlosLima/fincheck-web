@@ -16,7 +16,7 @@ export function DropdownMenuItem({
   return (
     <RdxDropdownMenu.Item
       className={cn(
-        'min-h-[48px] outline-none flex items-center p-4 text-sm text-gray-800 rounded-2xl transition-colors cursor-pointer data-[highlighted]:bg-teal-50',
+        'min-h-[40px] outline-none flex items-center px-4 py-2 text-sm text-gray-800 rounded-2xl transition-colors cursor-pointer data-[highlighted]:bg-teal-50',
         className,
       )}
       onSelect={onSelect}
