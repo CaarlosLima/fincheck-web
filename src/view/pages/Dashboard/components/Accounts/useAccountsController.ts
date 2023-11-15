@@ -13,6 +13,7 @@ export function useAccountsController() {
   });
 
   return {
+    accounts: [],
     areValuesVisible,
     isLoading: false,
     setSliderState,

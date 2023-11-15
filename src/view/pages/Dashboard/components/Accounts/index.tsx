@@ -1,3 +1,4 @@
+import { PlusIcon } from '@radix-ui/react-icons';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -14,6 +15,7 @@ import 'swiper/css';
 
 export function Accounts() {
   const {
+    accounts,
     areValuesVisible,
     isLoading,
     sliderState,
@@ -57,59 +59,81 @@ export function Accounts() {
           </div>
 
           <div className="flex-1 flex flex-col justify-end mt-10 md:mt-0">
-            <div>
-              <Swiper
-                spaceBetween={16}
-                slidesPerView={
-                  (windowWidth >= 768 && windowWidth < 1100) ||
-                  windowWidth < 500
-                    ? 1.1
-                    : 2.1
-                }
-                onSlideChange={({ isBeginning, isEnd }) =>
-                  setSliderState({ isBeginning, isEnd })
-                }
-                modules={[Autoplay]}
-              >
-                <div
-                  className="flex items-center justify-between mb-2"
-                  slot="container-start"
-                >
+            {accounts.length === 0 && (
+              <>
+                <div className="mb-2" slot="container-start">
                   <strong className="tracking-[-1px] text-lg font-bold">
                     Minhas Contas
                   </strong>
-
-                  <SliderNavigation {...sliderState} />
                 </div>
 
-                <SwiperSlide>
-                  <AccountCard
-                    ballance={1000.55}
-                    color="#fa0"
-                    name="Inter"
-                    type="CHECKING"
-                  />
-                </SwiperSlide>
+                <div className="h-52 rounded-2xl border-2 border-dashed border-teal-600 flex flex-col items-center justify-center gap-4">
+                  <div className="flex items-center justify-center rounded-full border-2 border-dashed border-white h-11 w-11">
+                    <PlusIcon className="w-6 h-6" />
+                  </div>
 
-                <SwiperSlide>
-                  <AccountCard
-                    ballance={1000.55}
-                    color="#333"
-                    name="Inter Invest"
-                    type="INVESTMENT"
-                  />
-                </SwiperSlide>
+                  <span className="font-medium tracking-[-0.5px] block w-32 text-center">
+                    Cadastre uma nova conta
+                  </span>
+                </div>
+              </>
+            )}
 
-                <SwiperSlide>
-                  <AccountCard
-                    ballance={1000.55}
-                    color="#0f0"
-                    name="Carteira"
-                    type="CASH"
-                  />
-                </SwiperSlide>
-              </Swiper>
-            </div>
+            {accounts.length > 0 && (
+              <div>
+                <Swiper
+                  spaceBetween={16}
+                  slidesPerView={
+                    (windowWidth >= 768 && windowWidth < 1100) ||
+                    windowWidth < 500
+                      ? 1.1
+                      : 2.1
+                  }
+                  onSlideChange={({ isBeginning, isEnd }) =>
+                    setSliderState({ isBeginning, isEnd })
+                  }
+                  modules={[Autoplay]}
+                >
+                  <div
+                    className="flex items-center justify-between mb-2"
+                    slot="container-start"
+                  >
+                    <strong className="tracking-[-1px] text-lg font-bold">
+                      Minhas Contas
+                    </strong>
+
+                    <SliderNavigation {...sliderState} />
+                  </div>
+
+                  <SwiperSlide>
+                    <AccountCard
+                      ballance={1000.55}
+                      color="#fa0"
+                      name="Inter"
+                      type="CHECKING"
+                    />
+                  </SwiperSlide>
+
+                  <SwiperSlide>
+                    <AccountCard
+                      ballance={1000.55}
+                      color="#333"
+                      name="Inter Invest"
+                      type="INVESTMENT"
+                    />
+                  </SwiperSlide>
+
+                  <SwiperSlide>
+                    <AccountCard
+                      ballance={1000.55}
+                      color="#0f0"
+                      name="Carteira"
+                      type="CASH"
+                    />
+                  </SwiperSlide>
+                </Swiper>
+              </div>
+            )}
           </div>
         </>
       )}
