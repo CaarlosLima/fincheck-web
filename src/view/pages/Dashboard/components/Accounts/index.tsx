@@ -1,6 +1,7 @@
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { cn } from 'src/app/utils/cn';
 import { formatCurrency } from 'src/app/utils/formatCurrency';
 import { EyeIcon } from 'src/view/components/icons/EyeIcon';
 
@@ -11,7 +12,13 @@ import { useAccountsController } from './useAccountsController';
 import 'swiper/css';
 
 export function Accounts() {
-  const { sliderState, setSliderState, windowWidth } = useAccountsController();
+  const {
+    areValuesVisible,
+    sliderState,
+    setSliderState,
+    toggleValuesVisibility,
+    windowWidth,
+  } = useAccountsController();
 
   return (
     <div className="flex flex-col text-white bg-teal-900 rounded-2xl w-full h-full px-4 py-8 md:p-10">
@@ -19,15 +26,22 @@ export function Accounts() {
         <span className="block tracking-[-0.5px]">Saldo Total</span>
 
         <div className="flex items-center gap-2">
-          <strong className="text-2xl tracking-[-1px]">
+          <strong
+            className={cn(
+              'text-2xl tracking-[-1px]',
+              !areValuesVisible && 'blur-md',
+            )}
+          >
             {formatCurrency(1000)}
           </strong>
 
           <button
             type="button"
             className="w-8 h-8 flex items-center justify-center"
+            onClick={toggleValuesVisibility}
+            title="Mostrar valores"
           >
-            <EyeIcon open />
+            <EyeIcon open={!areValuesVisible} />
           </button>
         </div>
       </div>

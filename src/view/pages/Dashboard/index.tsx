@@ -1,27 +1,29 @@
-import { Logo } from '../../components/Logo';
-import { UserMenu } from '../../components/UserMenu';
+import { DashboardProvider } from 'src/app/context/DashboardContext';
+import { Logo } from 'src/view/components/Logo';
+import { UserMenu } from 'src/view/components/UserMenu';
 
 import { Accounts } from './components/Accounts';
 import { Transactions } from './components/Transactions';
 
 export function Dashboard() {
   return (
-    <div className="flex flex-col gap-4 h-full w-full p-4 md:p-8 md:pt-6">
-      <header className="h-12 flex items-center justify-between">
-        <Logo className="h-6 text-teal-900" />
+    <DashboardProvider>
+      <div className="flex flex-col gap-4 h-full w-full p-4 md:p-8 md:pt-6">
+        <header className="h-12 flex items-center justify-between">
+          <Logo className="h-6 text-teal-900" />
+          <UserMenu />
+        </header>
 
-        <UserMenu />
-      </header>
+        <main className="flex flex-col flex-1 gap-4 max-h-full md:flex-row">
+          <section className="w-full md:w-1/2">
+            <Accounts />
+          </section>
 
-      <main className="flex flex-col flex-1 gap-4 max-h-full md:flex-row">
-        <section className="w-full md:w-1/2">
-          <Accounts />
-        </section>
-
-        <section className="w-full md:w-1/2">
-          <Transactions />
-        </section>
-      </main>
-    </div>
+          <section className="w-full md:w-1/2">
+            <Transactions />
+          </section>
+        </main>
+      </div>
+    </DashboardProvider>
   );
 }
