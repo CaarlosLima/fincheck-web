@@ -20,7 +20,7 @@ export function TransactionTypeDropdown() {
         </div>
       </DropdownMenu.Trigger>
 
-      <DropdownMenu.Content className="w-[297px]" showArrow>
+      <DropdownMenu.Content className="w-[297px]">
         <DropdownMenu.Item className="gap-2">
           <IncomeIcon />
           Receitas
