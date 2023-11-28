@@ -3,6 +3,7 @@ import { Logo } from 'src/view/components/Logo';
 import { UserMenu } from 'src/view/components/UserMenu';
 
 import { Accounts } from './components/Accounts';
+import { Fab } from './components/Fab';
 import { Transactions } from './components/Transactions';
 
 export function Dashboard() {
@@ -11,6 +12,7 @@ export function Dashboard() {
       <div className="flex flex-col gap-4 h-full w-full p-4 md:p-8 md:pt-6">
         <header className="h-12 flex items-center justify-between">
           <Logo className="h-6 text-teal-900" />
+
           <UserMenu />
         </header>
 
@@ -23,6 +25,8 @@ export function Dashboard() {
             <Transactions />
           </section>
         </main>
+
+        <Fab />
       </div>
     </DashboardProvider>
   );
