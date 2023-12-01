@@ -11,7 +11,7 @@ export function DropdownMenuTrigger({
   className,
 }: DropdownMenuTriggerProps) {
   return (
-    <RdxDropdownMenu.Trigger className={cn('outline-none', className)}>
+    <RdxDropdownMenu.Trigger className={cn('outline-none', className)} asChild>
       {children}
     </RdxDropdownMenu.Trigger>
   );
