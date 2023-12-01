@@ -43,7 +43,7 @@ export function Modal({
           <header className="text-gray-800 h-12 flex items-center justify-between">
             <button
               onClick={onClose}
-              className="center w-12 h-12 outline-none"
+              className="flex items-center justify-center w-12 h-12 outline-none"
               type="button"
             >
               <Cross2Icon className="h-6 w-6" />
@@ -51,7 +51,9 @@ export function Modal({
 
             <span className="text-lg tracking-[-1px] font-bold">{title}</span>
 
-            <div className="center w-12 h-12">{rightAction}</div>
+            <div className="flex items-center justify-center w-12 h-12">
+              {rightAction}
+            </div>
           </header>
 
           <div>{children}</div>
