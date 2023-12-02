@@ -21,6 +21,7 @@ export function Accounts() {
     sliderState,
     setSliderState,
     toggleValuesVisibility,
+    openNewAccountModal,
     windowWidth,
   } = useAccountsController();
 
@@ -67,7 +68,11 @@ export function Accounts() {
                   </strong>
                 </div>
 
-                <div className="h-52 rounded-2xl border-2 border-dashed border-teal-600 flex flex-col items-center justify-center gap-4">
+                <button
+                  className="h-52 rounded-2xl border-2 border-dashed border-teal-600 flex flex-col items-center justify-center gap-4"
+                  type="button"
+                  onClick={openNewAccountModal}
+                >
                   <div className="flex items-center justify-center rounded-full border-2 border-dashed border-white h-11 w-11">
                     <PlusIcon className="w-6 h-6" />
                   </div>
@@ -75,7 +80,7 @@ export function Accounts() {
                   <span className="font-medium tracking-[-0.5px] block w-32 text-center">
                     Cadastre uma nova conta
                   </span>
-                </div>
+                </button>
               </>
             )}
 
