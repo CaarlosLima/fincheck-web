@@ -10,44 +10,46 @@ import { cn } from 'src/app/utils/cn';
 
 type SelectProps = {
   options: { label: string; value: string }[];
-  name: string;
 
   className?: string;
   error?: string;
   placeHolder?: string;
+  value?: string;
+  onChange?(value: string): void;
 };
 
 export function Select({
   className,
   error,
   placeHolder,
-  name,
   options,
+  onChange,
+  value,
 }: SelectProps) {
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState(value ?? '');
 
+  // eslint-disable-next-line no-shadow
   function handleSelect(value: string) {
     setSelectedValue(value);
+    onChange?.(value);
   }
 
   return (
     <div>
       <div className="relative">
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label
           className={cn(
             'absolute top-1/2 -translate-y-1/2 left-3 pointer-events-none text-gray-700 z-[10]',
             selectedValue &&
               'text-xs left-[13px] top-2 transition-all -translate-y-0',
           )}
-          htmlFor={name}
         >
           {placeHolder}
         </label>
 
-        <RdxSelect.Root onValueChange={handleSelect}>
+        <RdxSelect.Root value={value} onValueChange={handleSelect}>
           <RdxSelect.Trigger
-            id={name}
-            name={name}
             className={cn(
               'relative bg-white w-full rounded-lg border border-gray-500 px-3 pt-4 h-[52px] text-gray-800 focus:border-gray-800 transition-all outline-none text-left',
               error && '!border-red-900',
@@ -68,13 +70,13 @@ export function Select({
               </RdxSelect.ScrollUpButton>
 
               <RdxSelect.Viewport className="p-2">
-                {options.map(({ label, value }) => (
+                {options.map((option) => (
                   <RdxSelect.Item
-                    key={value}
+                    key={option.value}
                     className="p-2 text-gray-800 text-sm outline-none data-[state=checked]:font-bold data-[highlighted]:bg-gray-100 rounded-lg transition-colors"
-                    value={value}
+                    value={option.value}
                   >
-                    <RdxSelect.ItemText>{label}</RdxSelect.ItemText>
+                    <RdxSelect.ItemText>{option.label}</RdxSelect.ItemText>
 
                     <RdxSelect.ItemIndicator className="absolute left-0 w-[25px] inline-flex items-center justify-center" />
                   </RdxSelect.Item>
