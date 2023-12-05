@@ -38,7 +38,7 @@ export function ColorsDropdownInput({
   value,
 }: ColorsDropdownInputProps) {
   const [selectedColor, setSelectedColor] = useState<null | Color>(() => {
-    if (value) {
+    if (!value) {
       return null;
     }
 
@@ -65,6 +65,7 @@ export function ColorsDropdownInput({
             Cor
             <div className="absolute right-3 top-1/2 -translate-y-1/2">
               {selectedColor && <ColorIcon {...selectedColor} />}
+
               {!selectedColor && (
                 <ChevronDownIcon className="h-6 w-6 text-gray-800" />
               )}

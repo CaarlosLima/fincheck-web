@@ -6,16 +6,22 @@ import {
   useState,
 } from 'react';
 
+import { BankAccount } from 'src/app/entities/BankAccount';
+
 type DashboardContextType = {
   areValuesVisible: boolean;
   isNewAccountModalOpen: boolean;
+  isEditAccountModalOpen: boolean;
   closeNewAccountModal(): void;
+  closeEditAccountModal(): void;
   newTransactionType: 'INCOME' | 'EXPENSE' | null;
   openNewAccountModal(): void;
+  openEditAccountModal(bankAccount: BankAccount): void;
   isNewTransactionModalOpen: boolean;
   closeNewTransactionModal(): void;
   openNewTransactionModal(type: 'INCOME' | 'EXPENSE'): void;
   toggleValuesVisibility(): void;
+  accountBeingEdited: BankAccount | null;
 };
 
 export const DashboardContext = createContext({} as DashboardContextType);
@@ -24,6 +30,9 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   // TODO: Save value in localStorage
   const [areValuesVisible, setAreValuesVisible] = useState(true);
   const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState(false);
+  const [isEditAccountModalOpen, setIsEditAccountModalOpen] = useState(false);
+  const [accountBeingEdited, setAccountBeingEdited] =
+    useState<BankAccount | null>(null);
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] =
     useState(false);
   const [newTransactionType, setNewTransactionType] = useState<
@@ -43,6 +52,16 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     setIsNewAccountModalOpen(false);
   }, []);
 
+  const openEditAccountModal = useCallback((bankAccount: BankAccount) => {
+    setAccountBeingEdited(bankAccount);
+    setIsEditAccountModalOpen(true);
+  }, []);
+
+  const closeEditAccountModal = useCallback(() => {
+    setAccountBeingEdited(null);
+    setIsEditAccountModalOpen(false);
+  }, []);
+
   const openNewTransactionModal = useCallback((type: 'INCOME' | 'EXPENSE') => {
     setNewTransactionType(type);
 
@@ -59,9 +78,13 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     () => ({
       areValuesVisible,
       isNewAccountModalOpen,
+      isEditAccountModalOpen,
       closeNewAccountModal,
+      closeEditAccountModal,
       newTransactionType,
       openNewAccountModal,
+      openEditAccountModal,
+      accountBeingEdited,
       isNewTransactionModalOpen,
       closeNewTransactionModal,
       openNewTransactionModal,
@@ -69,10 +92,14 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     }),
     [
       areValuesVisible,
-      newTransactionType,
-      closeNewAccountModal,
       isNewAccountModalOpen,
+      isEditAccountModalOpen,
+      closeNewAccountModal,
+      closeEditAccountModal,
+      newTransactionType,
       openNewAccountModal,
+      openEditAccountModal,
+      accountBeingEdited,
       isNewTransactionModalOpen,
       closeNewTransactionModal,
       openNewTransactionModal,

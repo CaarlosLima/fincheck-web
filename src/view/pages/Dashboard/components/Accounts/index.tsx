@@ -113,12 +113,7 @@ export function Accounts() {
 
                   {accounts.map((account) => (
                     <SwiperSlide key={account.id}>
-                      <AccountCard
-                        ballance={account.currentBalance}
-                        color={account.color}
-                        name={account.name}
-                        type={account.type}
-                      />
+                      <AccountCard {...account} />
                     </SwiperSlide>
                   ))}
                 </Swiper>

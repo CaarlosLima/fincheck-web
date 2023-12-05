@@ -1,22 +1,22 @@
+import { BankAccount } from 'src/app/entities/BankAccount';
 import { useDashboard } from 'src/app/hooks/useDashboard';
 import { cn } from 'src/app/utils/cn';
 import { formatCurrency } from 'src/app/utils/formatCurrency';
 import { BankAccountTypeIcon } from 'src/view/components/icons/BankAccountTypeIcon';
 
-type AccountCardProps = {
-  ballance: number;
-  color: string;
-  name: string;
-  type: 'CASH' | 'CHECKING' | 'INVESTMENT';
-};
+type AccountCardProps = BankAccount;
 
-export function AccountCard({ ballance, color, name, type }: AccountCardProps) {
-  const { areValuesVisible } = useDashboard();
+export function AccountCard(backAccount: AccountCardProps) {
+  const { color, currentBalance, name, type } = backAccount;
+
+  const { areValuesVisible, openEditAccountModal } = useDashboard();
 
   return (
-    <div
-      className="bg-white rounded-2xl flex flex-col justify-between p-4 h-[200px] border-b-4 border-teal-950"
+    <button
+      className="bg-white rounded-2xl flex flex-col justify-between p-4 h-[200px] border-b-4 border-teal-950 w-full"
       style={{ borderColor: color }}
+      type="button"
+      onClick={() => openEditAccountModal(backAccount)}
     >
       <div>
         <BankAccountTypeIcon type={type} />
@@ -33,10 +33,10 @@ export function AccountCard({ ballance, color, name, type }: AccountCardProps) {
             !areValuesVisible && 'blur-sm',
           )}
         >
-          {formatCurrency(ballance)}
+          {formatCurrency(currentBalance)}
         </span>
         <small className="text-gray-600 text-sm">Saldo Atual</small>
       </div>
-    </div>
+    </button>
   );
 }
