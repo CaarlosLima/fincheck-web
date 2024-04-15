@@ -2,6 +2,8 @@ import { Controller } from 'react-hook-form';
 
 import { Button } from 'src/view/components/Button';
 import { ColorsDropdownInput } from 'src/view/components/ColorsDropdownInput';
+import { ConfirmDeleteModal } from 'src/view/components/ConfirmDeleteModal';
+import { TrashIcon } from 'src/view/components/icons/TrashIcon';
 import { Input } from 'src/view/components/Input';
 import { InputCurrency } from 'src/view/components/InputCurrency';
 import { Modal } from 'src/view/components/Modal';
@@ -16,15 +18,27 @@ export function EditAccountModal() {
     isEditAccountModalOpen,
     closeEditAccountModal,
     errors,
+    isDeleteModalOpen,
+    handleCloseDeleteModal,
+    handleOpenDeleteModal,
     handleSubmit,
     register,
   } = useEditAccountModalController();
+
+  if (isDeleteModalOpen) {
+    return <ConfirmDeleteModal onClose={handleCloseDeleteModal} />;
+  }
 
   return (
     <Modal
       title="Editar Conta"
       open={isEditAccountModalOpen}
       onClose={closeEditAccountModal}
+      rightAction={
+        <button type="button" onClick={handleOpenDeleteModal}>
+          <TrashIcon className="w-6 h-6 text-red-900" />
+        </button>
+      }
     >
       <form onSubmit={handleSubmit}>
         <div>
