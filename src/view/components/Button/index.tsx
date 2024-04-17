@@ -5,6 +5,7 @@ import { Spinner } from 'src/view/components/Spinner';
 
 type ButtonProps = ComponentProps<'button'> & {
   isLoading?: boolean;
+  variant?: 'danger' | 'ghost';
 };
 
 export function Button({
@@ -12,6 +13,7 @@ export function Button({
   className,
   disabled,
   isLoading,
+  variant,
   type,
   ...props
 }: ButtonProps) {
@@ -24,6 +26,9 @@ export function Button({
       className={cn(
         'bg-teal-900 px-6 h-12 rounded-2xl font-medium text-white transition-all hover:bg-teal-800 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed',
         'flex items-center justify-center',
+        variant === 'danger' && 'bg-red-900 hover:bg-red-800',
+        variant === 'ghost' &&
+          'bg-transparent border border-gray-800 text-gray-800 hover:bg-gray-100',
         className,
       )}
     >

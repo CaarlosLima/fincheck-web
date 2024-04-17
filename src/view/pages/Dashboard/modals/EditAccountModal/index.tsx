@@ -15,18 +15,29 @@ export function EditAccountModal() {
   const {
     control,
     isPending,
+    isPendingDelete,
     isEditAccountModalOpen,
     closeEditAccountModal,
     errors,
     isDeleteModalOpen,
     handleCloseDeleteModal,
+    handleDeleteAccount,
     handleOpenDeleteModal,
     handleSubmit,
     register,
   } = useEditAccountModalController();
 
   if (isDeleteModalOpen) {
-    return <ConfirmDeleteModal onClose={handleCloseDeleteModal} />;
+    return (
+      <ConfirmDeleteModal
+        onClose={handleCloseDeleteModal}
+        onConfirm={handleDeleteAccount}
+        isLoading={isPendingDelete}
+        title="Tem certeza que deseja excluir esta conta?"
+        description="Ao excluir a conta, também serão excluídos todos os registros de
+        recibo e despesas relacionadas."
+      />
+    );
   }
 
   return (
