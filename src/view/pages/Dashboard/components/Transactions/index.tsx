@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { MONTHS } from 'src/app/config/constants/months';
 import { cn } from 'src/app/utils/cn';
 import { formatCurrency } from 'src/app/utils/formatCurrency';
+import { formatDate } from 'src/app/utils/formatDate';
 import emptyStateImage from 'src/assets/empty-state.svg';
 import { CategoryIcon } from 'src/view/components/icons/categories/CategoryIcon';
 import { FilterIcon } from 'src/view/components/icons/FilterIcon';
@@ -17,10 +18,13 @@ import { useTransactionsController } from './useTransactionsController';
 export function Transactions() {
   const {
     areValuesVisible,
+    handleApplyFilters,
     handleCloseFiltersModal,
     handleOpenFiltersModal,
     isFilterModalOpen,
+    handleChangeFilters,
     isInitialLoading,
+    filters,
     isLoading,
     transactions,
   } = useTransactionsController();
@@ -39,7 +43,10 @@ export function Transactions() {
         <>
           <header>
             <div className="flex items-center justify-between">
-              <TransactionTypeDropdown />
+              <TransactionTypeDropdown
+                onSelect={handleChangeFilters('type')}
+                selectedType={filters.type}
+              />
 
               <button type="button" onClick={handleOpenFiltersModal}>
                 <FilterIcon />
@@ -47,7 +54,14 @@ export function Transactions() {
             </div>
 
             <div className="mt-6 relative">
-              <Swiper slidesPerView={3} centeredSlides>
+              <Swiper
+                slidesPerView={3}
+                centeredSlides
+                initialSlide={filters.month}
+                onSlideChange={(swiper) =>
+                  handleChangeFilters('month')(swiper.realIndex)
+                }
+              >
                 <SliderNavigation />
 
                 {MONTHS.map((month, index) => (
@@ -82,58 +96,49 @@ export function Transactions() {
               </div>
             )}
 
-            {hasTransactions && !isLoading && (
-              <>
-                <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
+            {hasTransactions &&
+              !isLoading &&
+              transactions.map((transaction) => (
+                <div
+                  key={transaction.id}
+                  className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
+                >
                   <div className="flex flex-1 items-center gap-3">
-                    <CategoryIcon type="expense" />
+                    <CategoryIcon
+                      type={transaction.type}
+                      category={transaction.category?.icon}
+                    />
 
                     <div>
                       <strong className="font-bold tracking-[-0.5px] block">
-                        Almoço
+                        {transaction.name}
                       </strong>
-                      <span className="text-sm text-gray-600">12/12/2002</span>
+                      <span className="text-sm text-gray-600">
+                        {formatDate(new Date(transaction.date))}
+                      </span>
                     </div>
                   </div>
 
                   <span
                     className={cn(
-                      'text-red-800 tracking-[-0.5px] font-medium',
+                      'tracking-[-0.5px] font-medium',
+                      transaction.type === 'EXPENSE'
+                        ? 'text-red-800'
+                        : 'text-green-800',
                       !areValuesVisible && 'blur-sm',
                     )}
                   >
-                    {formatCurrency(-1000)}
+                    {transaction.type === 'EXPENSE' ? '-' : '+'}
+                    {formatCurrency(transaction.value)}
                   </span>
                 </div>
-
-                <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-                  <div className="flex flex-1 items-center gap-3">
-                    <CategoryIcon type="income" />
-
-                    <div>
-                      <strong className="font-bold tracking-[-0.5px] block">
-                        Almoço
-                      </strong>
-                      <span className="text-sm text-gray-600">12/12/2002</span>
-                    </div>
-                  </div>
-
-                  <span
-                    className={cn(
-                      'text-green-800 tracking-[-0.5px] font-medium',
-                      !areValuesVisible && 'blur-sm',
-                    )}
-                  >
-                    {formatCurrency(1500)}
-                  </span>
-                </div>
-              </>
-            )}
+              ))}
           </div>
 
           <FiltersModal
             open={isFilterModalOpen}
             onClose={handleCloseFiltersModal}
+            onApplyFilters={handleApplyFilters}
           />
         </>
       )}

@@ -4,35 +4,26 @@ import { cn } from 'src/app/utils/cn';
 import { Button } from 'src/view/components/Button';
 import { Modal } from 'src/view/components/Modal';
 
-import { useFiltersModal } from './useFiltersModal';
+import { useFiltersModalController } from './useFiltersModalController';
 
 type FiltersModalProps = {
   open: boolean;
   onClose(): void;
+  onApplyFilters(filters: { year: number; bankAccountId?: string }): void;
 };
 
-const mockedAccounts = [
-  {
-    id: '1234',
-    name: 'Banco do Brasil',
-  },
-  {
-    id: '5678',
-    name: 'Inter',
-  },
-  {
-    id: '9101',
-    name: 'Carteira',
-  },
-];
-
-export function FiltersModal({ onClose, open }: FiltersModalProps) {
+export function FiltersModal({
+  onApplyFilters,
+  onClose,
+  open,
+}: FiltersModalProps) {
   const {
+    accounts,
     handleChangeYear,
     handleSelectBankAccount,
     selectedBankAccountId,
     selectedYear,
-  } = useFiltersModal();
+  } = useFiltersModalController();
 
   return (
     <Modal open={open} onClose={onClose} title="Filtros">
@@ -42,7 +33,7 @@ export function FiltersModal({ onClose, open }: FiltersModalProps) {
         </span>
 
         <div className="space-y-2 mt-2">
-          {mockedAccounts.map(({ id, name }) => (
+          {accounts.map(({ id, name }) => (
             <button
               key={id}
               className={cn(
@@ -86,7 +77,17 @@ export function FiltersModal({ onClose, open }: FiltersModalProps) {
         </div>
       </div>
 
-      <Button className="w-full mt-10">Aplicar Filtros</Button>
+      <Button
+        className="w-full mt-10"
+        onClick={() =>
+          onApplyFilters({
+            year: selectedYear,
+            bankAccountId: selectedBankAccountId,
+          })
+        }
+      >
+        Aplicar Filtros
+      </Button>
     </Modal>
   );
 }

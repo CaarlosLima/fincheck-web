@@ -14,6 +14,8 @@ export function InputCurrency({ error, value, onChange }: InputCurrencyProps) {
     <div>
       <NumericFormat
         thousandSeparator="."
+        decimalScale={2}
+        fixedDecimalScale
         decimalSeparator=","
         value={value}
         onChange={(e) => onChange?.(e.target.value)}

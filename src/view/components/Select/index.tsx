@@ -18,6 +18,7 @@ type SelectProps = {
   onChange?(value: string): void;
 };
 
+// TODO: Add isLoading state
 export function Select({
   className,
   error,
