@@ -1,13 +1,13 @@
-import { Transactions } from 'src/app/entities/Transactions';
+import { Transaction } from 'src/app/entities/Transactions';
 import { httpClient } from 'src/app/services/httpClient';
 
-type TransactionsResponse = Array<Transactions>;
+type TransactionsResponse = Array<Transaction>;
 
 export type TransactionsFilters = {
   month: number;
   year: number;
   bankAccountId?: string;
-  type?: Transactions['type'];
+  type?: Transaction['type'];
 };
 
 export async function getAll(filters: TransactionsFilters) {

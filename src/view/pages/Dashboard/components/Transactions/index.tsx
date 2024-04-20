@@ -8,6 +8,7 @@ import emptyStateImage from 'src/assets/empty-state.svg';
 import { CategoryIcon } from 'src/view/components/icons/categories/CategoryIcon';
 import { FilterIcon } from 'src/view/components/icons/FilterIcon';
 import { Spinner } from 'src/view/components/Spinner';
+import { EditTransactionModal } from 'src/view/pages/Dashboard/modals/EditTransactionModal';
 
 import { FiltersModal } from './FiltersModal';
 import { SliderNavigation } from './SliderNavigation';
@@ -20,6 +21,10 @@ export function Transactions() {
     areValuesVisible,
     handleApplyFilters,
     handleCloseFiltersModal,
+    isEditModalOpen,
+    handleCloseEditModal,
+    handleOpenEditModal,
+    transactionBeingEdited,
     handleOpenFiltersModal,
     isFilterModalOpen,
     handleChangeFilters,
@@ -96,43 +101,53 @@ export function Transactions() {
               </div>
             )}
 
-            {hasTransactions &&
-              !isLoading &&
-              transactions.map((transaction) => (
-                <div
-                  key={transaction.id}
-                  className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4"
-                >
-                  <div className="flex flex-1 items-center gap-3">
-                    <CategoryIcon
-                      type={transaction.type}
-                      category={transaction.category?.icon}
-                    />
-
-                    <div>
-                      <strong className="font-bold tracking-[-0.5px] block">
-                        {transaction.name}
-                      </strong>
-                      <span className="text-sm text-gray-600">
-                        {formatDate(new Date(transaction.date))}
-                      </span>
-                    </div>
-                  </div>
-
-                  <span
-                    className={cn(
-                      'tracking-[-0.5px] font-medium',
-                      transaction.type === 'EXPENSE'
-                        ? 'text-red-800'
-                        : 'text-green-800',
-                      !areValuesVisible && 'blur-sm',
-                    )}
+            {hasTransactions && !isLoading && (
+              <>
+                {transactions.map((transaction) => (
+                  <button
+                    key={transaction.id}
+                    className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4 w-full"
+                    type="button"
+                    onClick={() => handleOpenEditModal(transaction)}
                   >
-                    {transaction.type === 'EXPENSE' ? '-' : '+'}
-                    {formatCurrency(transaction.value)}
-                  </span>
-                </div>
-              ))}
+                    <div className="flex flex-1 items-center gap-3">
+                      <CategoryIcon
+                        type={transaction.type}
+                        category={transaction.category?.icon}
+                      />
+
+                      <div>
+                        <strong className="font-bold tracking-[-0.5px] block">
+                          {transaction.name}
+                        </strong>
+                        <span className="text-sm text-gray-600">
+                          {formatDate(new Date(transaction.date))}
+                        </span>
+                      </div>
+                    </div>
+
+                    <span
+                      className={cn(
+                        'tracking-[-0.5px] font-medium',
+                        transaction.type === 'EXPENSE'
+                          ? 'text-red-800'
+                          : 'text-green-800',
+                        !areValuesVisible && 'blur-sm',
+                      )}
+                    >
+                      {transaction.type === 'EXPENSE' ? '-' : '+'}
+                      {formatCurrency(transaction.value)}
+                    </span>
+                  </button>
+                ))}
+
+                <EditTransactionModal
+                  open={isEditModalOpen}
+                  onClose={handleCloseEditModal}
+                  transactionType="EXPENSE"
+                />
+              </>
+            )}
           </div>
 
           <FiltersModal

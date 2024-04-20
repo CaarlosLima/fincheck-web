@@ -1,6 +1,6 @@
 import { Category } from './Category';
 
-export type Transactions = {
+export type Transaction = {
   id: string;
   date: string;
   name: string;
