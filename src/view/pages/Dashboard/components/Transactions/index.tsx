@@ -141,11 +141,13 @@ export function Transactions() {
                   </button>
                 ))}
 
-                <EditTransactionModal
-                  open={isEditModalOpen}
-                  onClose={handleCloseEditModal}
-                  transactionType="EXPENSE"
-                />
+                {transactionBeingEdited && (
+                  <EditTransactionModal
+                    open={isEditModalOpen}
+                    onClose={handleCloseEditModal}
+                    transaction={transactionBeingEdited}
+                  />
+                )}
               </>
             )}
           </div>

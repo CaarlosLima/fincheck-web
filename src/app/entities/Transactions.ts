@@ -7,5 +7,6 @@ export type Transaction = {
   type: 'INCOME' | 'EXPENSE';
   value: number;
 
+  bankAccountId?: string;
   category?: Category;
 };
