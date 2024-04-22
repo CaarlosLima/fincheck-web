@@ -4,7 +4,7 @@ import { useAuth } from 'src/app/hooks/useAuth';
 import { DropdownMenu } from 'src/view/components/DropdownMenu';
 
 export function UserMenu() {
-  const { signout } = useAuth();
+  const { signout, user } = useAuth();
 
   return (
     <DropdownMenu.Root>
@@ -14,7 +14,7 @@ export function UserMenu() {
           type="button"
         >
           <span className="text-sm tracking-[0.5px] text-teal-900 font-medium">
-            CL
+            {user?.name.slice(0, 2).toUpperCase()}
           </span>
         </button>
       </DropdownMenu.Trigger>
