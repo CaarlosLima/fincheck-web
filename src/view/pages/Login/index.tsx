@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { Button } from 'src/view/components/Button';
 import { Input } from 'src/view/components/Input';
+import { InputPassword } from 'src/view/components/InputPassword';
 
 import { useLoginController } from './useLoginController';
 
@@ -37,8 +38,7 @@ export function Login() {
           {...register('email')}
         />
 
-        <Input
-          type="password"
+        <InputPassword
           label="Senha"
           error={errors.password?.message}
           {...register('password')}
