@@ -10,7 +10,7 @@ export function Login() {
 
   return (
     <>
-      <header className="flex flex-col items-center gap-4 text-center">
+      <header className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl text-gray-900 font-bold tracking-[-1px]">
           Entre em sua conta
         </h1>
@@ -29,7 +29,7 @@ export function Login() {
         </p>
       </header>
 
-      <form className="mt-[60px] flex flex-col gap-4" onSubmit={handleSubmit}>
+      <form className="mt-8 flex flex-col gap-6" onSubmit={handleSubmit}>
         <Input
           type="email"
           placeholder="E-mail"

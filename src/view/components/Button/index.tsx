@@ -24,9 +24,10 @@ export function Button({
       type={type}
       disabled={disabled || isLoading}
       className={cn(
-        'bg-teal-900 px-6 h-12 rounded-2xl font-medium text-white transition-all hover:bg-teal-800 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed',
-        'flex items-center justify-center',
-        variant === 'danger' && 'bg-red-900 hover:bg-red-800',
+        'flex items-center justify-center bg-teal-900 px-6 h-12 rounded-2xl font-medium text-white transition-all',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-teal-600 hover:bg-teal-800 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed',
+        variant === 'danger' &&
+          'bg-red-900 focus-visible:ring-red-800 hover:bg-red-800',
         variant === 'ghost' &&
           'bg-transparent border border-gray-800 text-gray-800 hover:bg-gray-100',
         className,
