@@ -32,21 +32,21 @@ export function Register() {
       <form className="mt-8 flex flex-col gap-6" onSubmit={handleSubmit}>
         <Input
           type="text"
-          placeholder="Nome"
+          label="Nome"
           error={errors.name?.message}
           {...register('name')}
         />
 
         <Input
           type="email"
-          placeholder="E-mail"
+          label="E-mail"
           error={errors.email?.message}
           {...register('email')}
         />
 
         <Input
           type="password"
-          placeholder="Senha"
+          label="Senha"
           error={errors.password?.message}
           {...register('password')}
         />
