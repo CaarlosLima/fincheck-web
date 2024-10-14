@@ -53,7 +53,7 @@ export function NewAccountModal() {
         <div className="mt-10 space-y-4">
           <Input
             type="text"
-            placeholder="Nome da Conta"
+            label="Nome da Conta"
             error={errors.name?.message}
             {...register('name')}
           />

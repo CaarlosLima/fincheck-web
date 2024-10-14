@@ -10,6 +10,7 @@ type ModalProps = {
   title: string;
 
   className?: string;
+  description?: string;
   onClose?(): void;
   rightAction?: ReactNode;
 };
@@ -17,6 +18,7 @@ type ModalProps = {
 export function Modal({
   children,
   className,
+  description,
   onClose,
   open,
   rightAction,
@@ -49,12 +51,18 @@ export function Modal({
               <Cross2Icon className="h-6 w-6" />
             </button>
 
-            <span className="text-lg tracking-[-1px] font-bold">{title}</span>
+            <RdxDialog.Title className="text-lg tracking-[-1px] font-bold">
+              {title}
+            </RdxDialog.Title>
 
             <div className="flex items-center justify-center w-12 h-12">
               {rightAction}
             </div>
           </header>
+
+          <RdxDialog.Description className="">
+            {description}
+          </RdxDialog.Description>
 
           <div>{children}</div>
         </RdxDialog.Content>
