@@ -1,5 +1,6 @@
-import { delay } from '../../utils/delay';
-import { httpClient } from '../httpClient';
+import { httpClient } from 'src/app/services/httpClient';
+import { delay } from 'src/app/utils/delay';
+import { isDevelopment } from 'src/app/utils/environment';
 
 export type SignupParams = {
   email: string;
@@ -12,7 +13,9 @@ type SignupResponse = {
 };
 
 export async function signup(params: SignupParams) {
-  await delay();
+  if (isDevelopment()) {
+    await delay();
+  }
 
   const { data } = await httpClient.post<SignupResponse>(
     '/auth/signup',

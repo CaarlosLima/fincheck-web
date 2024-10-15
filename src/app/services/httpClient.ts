@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { localStorageKeys } from 'src/app/config/localStorageKeys';
 import { delay } from 'src/app/utils/delay';
+import { isDevelopment } from 'src/app/utils/environment';
 
 export const httpClient = axios.create({
   baseURL: import.meta.env.VITE_BASE_API_URL,
@@ -20,7 +21,9 @@ httpClient.interceptors.request.use((config) => {
 });
 
 httpClient.interceptors.response.use(async (data) => {
-  await delay(500);
+  if (isDevelopment()) {
+    await delay(500);
+  }
 
   return data;
 });
